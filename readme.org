@@ -8,7 +8,7 @@
 antara "hom" dan "pho"
 * backend story
 ** pypy
-pertama kali nyoba pake pypy
+pertama kali nyoba pake pypy[fn:1]
 *** Install pypy using ubuntu repo
 #+BEGIN_SRC sh
   sudo add-apt-repository ppa:pypy/ppa
@@ -36,4 +36,9 @@ I'm using x86-64 binary. Then, run these code:
 #+END_SRC
 ** tornado web server
 nyoba tornado for production
+
+* Footnotes
+
+[fn:1] http://pypy.org
+
 
