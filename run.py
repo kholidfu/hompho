@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # http://blog.yeradis.com/2012/11/standalone-flask-wsgi-running-under.html
 from app import app
-app.debug = True
+# app.debug = True
 # print 'Twisted on port 5000...'
 # from twisted.internet import reactor
 # from twisted.web.server import Site

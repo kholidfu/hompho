@@ -2,7 +2,8 @@ from flask import render_template, redirect, request, session, flash, url_for
 from flask import Blueprint
 from functools import wraps
 from app.forms import AdminLoginForm, UserLoginForm, UserRegisterForm
-
+import json
+import urllib2
 
 admin = Blueprint('admin', __name__, url_prefix="/admin")
 
@@ -79,13 +80,14 @@ def admin_grab():
 
         for jump in jumper:
             # build the url
-            url = "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=large&rsz=8&start=%s&q=%s" % (jump, query)
+            url = "http://ajax.googleapis.com/ajax/services/search/" \
+            "images?v=1.0&imgsz=large&rsz=8&start=%s&q=%s" % (jump, query)
 
             # show the search results
             data = json.loads(urllib2.urlopen(url).read())["responseData"]["results"]
             container += data  # appending data
 
-        return render_template("admin_post.html", data=container)
+        return render_template("admin/admin_post.html", data=container)
 
     # if request method is post, ready to insert into database
     if request.method == "POST":
