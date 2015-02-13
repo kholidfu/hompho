@@ -35,10 +35,12 @@ I'm using x86-64 binary. Then, run these code:
   pip install -r requirements.txt
 #+END_SRC
 ** tornado web server
-nyoba tornado for production
+nyoba tornado[fn:2] for production
 
 * Footnotes
 
 [fn:1] http://pypy.org
+
+[fn:2] http://www.tornadoweb.org/en/stable/
 
 
