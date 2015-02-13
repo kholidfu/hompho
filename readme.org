@@ -10,7 +10,7 @@ me why, the two main reason are for fun and for nothing!.
 
 Using google api images, I'm trying to query and process the data
 within the admin dashboard.
-* backend story
+* Backend Story
 ** pypy
 pertama kali nyoba pake pypy[fn:1]
 *** Install pypy using ubuntu repo
