@@ -5,7 +5,7 @@
 
 
 * hompho
-antara hom dan pho
+antara "hom" dan "pho"
 * backend story
 ** pypy
 *** Install pypy using ubuntu repo
