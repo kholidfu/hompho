@@ -5,7 +5,7 @@
 
 
 * hompho
-Instead of regular cpython, this Flask app use pypy. Reason? Don't ask
+Instead of regular python, this Flask app use pypy. Reason? Don't ask
 me why, the two main reason are for fun and for nothing!.
 * backend story
 ** pypy
