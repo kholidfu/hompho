@@ -1,0 +1,11 @@
+*~
+*.pyc
+bin/
+include*
+lib/
+local/
+*.tar.bz2
+lib_pypy/
+lib-python/
+site-packages/
+pypy*/
