@@ -19,7 +19,9 @@ from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 from tornado import autoreload
 from tornado.web import FallbackHandler, Application
-
+# enabling werkzeug debugging
+# from werkzeug.debug import DebuggedApplication
+# app_debug = DebuggedApplication(app, evalex=True)
 ## regular non-async tornado settings
 # http_server = HTTPServer(WSGIContainer(app))
 # http_server.listen(5000)
