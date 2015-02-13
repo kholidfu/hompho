@@ -45,6 +45,62 @@ def admin_login():
         return render_template("/admin/login.html", form=form)
 
 
+
+@admin.route("/grabber", methods=["GET", "POST"])
+@login_required
+def admin_grab():
+    """
+    admin update database by utilizing google images api.
+    1. show the post form
+    2. filter the grabbed content
+    3. post!
+
+    pake get aja
+    jika ada parameter ?query= maka search lah
+    else tampilkan form input kosong gitu aje
+
+    method POST dipake ketika insert ke database saje
+
+    guide on ajax.googleapis request
+    https://developers.google.com/image-search/v1/jsondevguide
+    imgsz = image size
+    rsz = results (1-8)
+    start = pagination (1-8)
+
+    """
+
+    # if we have query params in url:
+    if request.args.get("query"):
+
+        query = request.args.get("query").replace(" ", "%20")
+        jumper = range(0, 64, 8)  # [0, 8, ..., 64]
+
+        container = []
+
+        for jump in jumper:
+            # build the url
+            url = "http://ajax.googleapis.com/ajax/services/search/images?v=1.0&imgsz=large&rsz=8&start=%s&q=%s" % (jump, query)
+
+            # show the search results
+            data = json.loads(urllib2.urlopen(url).read())["responseData"]["results"]
+            container += data  # appending data
+
+        return render_template("admin_post.html", data=container)
+
+    # if request method is post, ready to insert into database
+    if request.method == "POST":
+        """
+        download the image[s] to some dir [ex: temp_assets]
+        and run: python dist_img_to_dir.py temp_assets
+        done! :)
+        """
+        return "sukses"
+        
+    # else, show template with form and blank table
+    print "autoreloaded!"
+    return render_template("admin/admin_post.html")
+
+
 @admin.route("/logout")
 def admin_logout():
     if "admin" not in session:
