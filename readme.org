@@ -5,7 +5,8 @@
 
 
 * hompho
-antara "hom" dan "pho"
+Instead of regular cpython, this Flask app use pypy. Reason? Don't ask
+me why, the main reason is for fun and for nothing!.
 * backend story
 ** pypy
 pertama kali nyoba pake pypy[fn:1]
