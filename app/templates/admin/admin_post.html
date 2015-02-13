@@ -26,7 +26,7 @@
                     <th>#</th>
                     <th>Thumb</th>
                     <th>Title</th>
-                    <th>Category</th>
+                    <th>Select</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -35,8 +35,8 @@
                   <tr>
                     <td>{{ count }}</td>
                     <td><img src="{{ d['url'] }}" width="250"></td>
-                    <td>{{ d['titleNoFormatting'] }}</td>
-                    <td></td>
+                    <td><textarea class="form-control" rows="5">{{ d['titleNoFormatting'] }}</textarea></td>
+                    <td><input type="checkbox"></td>
                   </tr>
                   {% set count = count + 1 %}
 		  {% endfor %}
@@ -64,5 +64,5 @@
             <!-- /.row -->
         </div>
         <!-- /#page-wrapper -->
-
+	<br />
 {% endblock %}
