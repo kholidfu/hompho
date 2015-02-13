@@ -74,14 +74,15 @@ def admin_grab():
     if request.args.get("query"):
 
         query = request.args.get("query").replace(" ", "%20")
-        jumper = range(0, 64, 8)  # [0, 8, ..., 64]
+        # jumper = range(0, 64, 8)  # [0, 8, ..., 64]
+        jumper = range(0, 8, 8)  # for development
 
         container = []
 
         for jump in jumper:
             # build the url
             url = "http://ajax.googleapis.com/ajax/services/search/" \
-            "images?v=1.0&imgsz=large&rsz=8&start=%s&q=%s" % (jump, query)
+            "images?v=1.0&imgsz=large&rsz=4&start=%s&q=%s" % (jump, query)  # default 8
 
             # show the search results
             data = json.loads(urllib2.urlopen(url).read())["responseData"]["results"]
