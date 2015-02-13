@@ -5,7 +5,14 @@
 
 
 * Pypy
-** How to install in virtualenv
+** Install pypy using ubuntu repo
+#+BEGIN_SRC sh
+  sudo add-apt-repository ppa:pypy/ppa
+  sudo apt-get update
+  sudo apt-get install pypy pypy-dev
+#+END_SRC
+** Create virtualenv with pypy
+*** Using pypy tarball
 First, download and extract pypy-2.x tarball, from
 
 [[http://pypy.org/download.html]]
@@ -16,5 +23,11 @@ I'm using x86-64 binary. Then, run these code:
   virtualenv -p pypy-2.5/bin/pypy dirname
   . bin/activate
   pip install -r requirements.txt
-  ./run.py
 #+END_SRC
+*** Using pypy repo (system wide)
+#+BEGIN_SRC sh
+  virtualenv -p /usr/bin/pypy venv_name
+  . bin/activate
+  pip install -r requirements.txt
+#+END_SRC
+
