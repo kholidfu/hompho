@@ -8,18 +8,19 @@
                     <h1 class="page-header">ng-AdImin</h1>
 
 		    {% if data %}
-		    <form method="post" action="/admin/grabber">
-                      <div class="input-group custom-search-form">
-			
-                        <input type="text" class="form-control" placeholder="Search..." name="query">
-                        <span class="input-group-btn">
-                          <button class="btn btn-default" type="button">
-                            <i class="fa fa-search"></i>
-                          </button>
-			</span>
-                      </div>
+		    <form>
+                  <div class="input-group custom-search-form">
 		    
+                    <input type="text" class="form-control" placeholder="Search..." name="query">
+                    <span class="input-group-btn">
+                      <button class="btn btn-default" type="button">
+                        <i class="fa fa-search"></i>
+                      </button>
+		    </span>
+                  </div>
+		</form>
 		    <br />
+		    <form method="post" action="/admin/grabber">
                 <table class="table table-bordered">
                 <thead>
                   <tr>
@@ -34,7 +35,7 @@
 		  {% for d in data %}
                   <tr>
                     <td>{{ count }}</td>
-                    <td><img src="{{ d['url'] }}" width="250"></td>
+                    <td><img src="http://hackpad.imgix.net/{{ d['url'] }}?w=150&h=150&fit=crop"></td>
                     <td><textarea name="textareaTitle" class="form-control" rows="5">{{ d['titleNoFormatting'] }}</textarea></td>
                     <td><input type="checkbox" name="check" value="{{ count - 1 }}"></td>
                   </tr>
