@@ -8,7 +8,7 @@
                     <h1 class="page-header">ng-AdImin</h1>
 
 		    {% if data %}
-		    <form>
+		    <form method="post" action="/admin/grabber">
                       <div class="input-group custom-search-form">
 			
                         <input type="text" class="form-control" placeholder="Search..." name="query">
@@ -18,7 +18,7 @@
                           </button>
 			</span>
                       </div>
-		    </form>
+		    
 		    <br />
                 <table class="table table-bordered">
                 <thead>
@@ -35,14 +35,15 @@
                   <tr>
                     <td>{{ count }}</td>
                     <td><img src="{{ d['url'] }}" width="250"></td>
-                    <td><textarea class="form-control" rows="5">{{ d['titleNoFormatting'] }}</textarea></td>
-                    <td><input type="checkbox"></td>
+                    <td><textarea name="textareaTitle" class="form-control" rows="5">{{ d['titleNoFormatting'] }}</textarea></td>
+                    <td><input type="checkbox" name="check" value="{{ count - 1 }}"></td>
                   </tr>
                   {% set count = count + 1 %}
 		  {% endfor %}
                 </tbody>
                 </table>
 		<button class="btn btn-large btn-primary" type="submit" id="butInsertAll">Insert All Selection</button>
+    </form>
 		{% else %}
 		<form>
                   <div class="input-group custom-search-form">
@@ -65,4 +66,38 @@
         </div>
         <!-- /#page-wrapper -->
 	<br />
+{% endblock %}
+
+{% block js %}
+<script>
+$(document).ready(function() {
+    // $("#butInsertAll").click(function() {
+	// console.log("hai!");
+	// var x = $('input[name="check[]"]').val();
+	// $.ajax({
+	//     url: "/admin/grabber",
+	//     type: "POST",
+	//     data: {"data": x},
+	//     success: function(response) {
+	// 	console.log(response);
+	//     }
+	// })
+	
+        // var url = $(this).attr("data-url");
+        // var oid = $(this).attr("data-oid");
+        // var title = $(this).attr("data-title");
+        // // console.log(url);
+        // $.ajax({
+        //     url: "/admin/thumbnailer",
+        //     type: "POST",
+        //     data: {"url": url, "oid": oid, "title": title},
+        //     success: function(response) {
+        //         console.log(response);
+        //         window.location.reload();
+        //     }
+        // })
+
+    // })
+})
+</script>
 {% endblock %}
