@@ -97,6 +97,18 @@ def admin_grab():
         and run: python dist_img_to_dir.py temp_assets
         done! :)
         """
+        # get checkbox value
+        checked = request.form.getlist("check")  # results as checked
+        titles = request.form.getlist("textareaTitle")  # results always 4
+        # how to combine these? -_-
+        # okay solved: make the checkbox as index (y)
+        container = []
+        for i in checked:
+            container.append(titles[int(i)])
+            
+        # disini nanti bisa ditambahkan lagi, misal url
+        print container
+        # kemudian diproses, download, resize dll, after this line.
         return "sukses"
         
     # else, show template with form and blank table
