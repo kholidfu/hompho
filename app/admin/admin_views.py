@@ -74,21 +74,21 @@ def admin_grab():
     if request.args.get("query"):
 
         query = request.args.get("query").replace(" ", "%20")
-        # jumper = range(0, 64, 8)  # [0, 8, ..., 64]
-        jumper = range(0, 8, 8)  # for development
+        jumper = range(0, 64, 8)  # [0, 8, ..., 64]
 
         container = []
 
         for jump in jumper:
             # build the url
             url = "http://ajax.googleapis.com/ajax/services/search/" \
-            "images?v=1.0&imgsz=large&rsz=4&start=%s&q=%s" % (jump, query)  # default 8
+            "images?v=1.0&imgsz=large&rsz=8&start=%s&q=%s" % (jump, query)  # default 8
 
             # show the search results
             data = json.loads(urllib2.urlopen(url).read())["responseData"]["results"]
             container += data  # appending data
 
-        return render_template("admin/admin_post.html", data=container)
+        return render_template("admin/admin_post.html", data=container,
+                               query=query.replace("%20", " "))
 
     # if request method is post, ready to insert into database
     if request.method == "POST":
@@ -100,7 +100,6 @@ def admin_grab():
         # get checkbox value
         checked = request.form.getlist("check")  # results as checked
         titles = request.form.getlist("textareaTitle")  # results always 4
-        # how to combine these? -_-
         # okay solved: make the checkbox as index (y)
         container = []
         for i in checked:
