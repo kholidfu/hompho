@@ -1,5 +1,9 @@
 {% extends "admin/base.html" %}
 
+{% block title %}
+<title>Grabber for NgAdImin</title>
+{% endblock %}
+
 {% block content %}
 
         <div id="page-wrapper">
@@ -26,6 +30,8 @@
                   <tr>
                     <th>#</th>
                     <th>Thumb</th>
+		    <th>w</th>
+		    <th>h</th>
                     <th>Title</th>
                     <th>Select</th>
                   </tr>
@@ -36,8 +42,11 @@
                   <tr>
                     <td>{{ count }}</td>
                     <td><img src="http://hackpad.imgix.net/{{ d['url'] }}?w=150&h=150&fit=crop"></td>
+		    <td>{{ d['width'] }}</td>
+		    <td>{{ d['height'] }}</td>
                     <td><textarea name="textareaTitle" class="form-control" rows="5">{{ d['titleNoFormatting'] }}</textarea></td>
                     <td><input type="checkbox" name="check" value="{{ count - 1 }}"></td>
+					<td><input type="text" name="url" value="{{ d['url'] }}" /></td>
                   </tr>
                   {% set count = count + 1 %}
 		  {% endfor %}
