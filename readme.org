@@ -38,8 +38,16 @@ I'm using x86-64 binary. Then, run these code:
   . bin/activate
   pip install -r requirements.txt
 #+END_SRC
-** tornado web server
-nyoba tornado[fn:2] for production
+** web server
+You can choose 1 from 3 default web server, Flask builtin (werkzeug),
+tornado[fn:2], or twisted. You can choose and run easily buy running
+this command:
+
+#+BEGIN_SRC sh
+  ./run.py  # will run default
+  ./run.py -s tornado  # will run tornado web server
+  ./run.py -s twisted  # will run twisted web server
+#+END_SRC
 
 * Footnotes
 
