@@ -46,7 +46,6 @@ def admin_login():
         return render_template("/admin/login.html", form=form)
 
 
-
 @admin.route("/grabber", methods=["GET", "POST"])
 @login_required
 def admin_grab():
@@ -75,13 +74,14 @@ def admin_grab():
 
         query = request.args.get("query").replace(" ", "%20")
         jumper = range(0, 64, 8)  # [0, 8, ..., 64]
+        jumper = range(0, 8, 8)  # [0, 8, ..., 64]
 
         container = []
 
         for jump in jumper:
             # build the url
             url = "http://ajax.googleapis.com/ajax/services/search/" \
-            "images?v=1.0&imgsz=large&rsz=8&start=%s&q=%s" % (jump, query)  # default 8
+            "images?v=1.0&imgsz=large&rsz=4&start=%s&q=%s" % (jump, query)  # default 8
 
             # show the search results
             data = json.loads(urllib2.urlopen(url).read())["responseData"]["results"]
@@ -98,16 +98,25 @@ def admin_grab():
         done! :)
         """
         # get checkbox value
-        checked = request.form.getlist("check")  # results as checked
+        checkedbox = request.form.getlist("check")  # results as checked
         titles = request.form.getlist("textareaTitle")  # results always 4
+        urls = request.form.getlist("url")  # url for download
         # okay solved: make the checkbox as index (y)
         container = []
-        for i in checked:
-            container.append(titles[int(i)])
+        for i in checkedbox:
+            container.append({"title": titles[int(i)], "url": urls[int(i)] })
             
         # disini nanti bisa ditambahkan lagi, misal url
-        print container
+        count = 1
+        for i in container:
+            with open("/home/banteng/Desktop/image_%s.jpg" % count, "w") as f:
+                f.write(urllib2.urlopen(i['url']).read())
+            count += 1
         # kemudian diproses, download, resize dll, after this line.
+        # download, fake the user-agent and the referer
+        ua = "Mozilla/5.0"
+        
+        # proses resize, thumbnail dan insert ke db, pake dist_img_to_dir.py ae
         return "sukses"
         
     # else, show template with form and blank table
