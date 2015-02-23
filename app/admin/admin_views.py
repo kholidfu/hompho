@@ -5,6 +5,8 @@ from app.forms import AdminLoginForm, UserLoginForm, UserRegisterForm
 import json
 import urllib2
 from urlparse import urlparse
+import os
+
 
 admin = Blueprint('admin', __name__, url_prefix="/admin")
 
@@ -117,7 +119,11 @@ def admin_grab():
         # disini nanti bisa ditambahkan lagi, misal url
         count = 1
         for i in container:
-            with open("/home/banteng/Desktop/image_%s.jpg" % count, "w") as f:
+            # get basename for filename
+            fname = os.path.basename(i['url'])
+            # harusnya disimpan ke folder semacam temp gitu
+            # karena prosesnya satu persatu maka nama file dibikin saja
+            with open("/home/banteng/Desktop/%s" % fname, "w") as f:
                 # setting up referer (get tld name)
                 parsed_uri = urlparse(i['url'])
                 referer_info = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
@@ -125,12 +131,10 @@ def admin_grab():
                 req = urllib2.Request(i['url'])
                 req.add_header('User-Agent', 'Mozilla/4.0 (compatible; MSIE 8.0)')
                 req.add_header('Referer', referer_info)
+                # downloading...
                 f.write(urllib2.urlopen(req).read())
             count += 1
-        # kemudian diproses, download, resize dll, after this line.
-        # download, fake the user-agent and the referer
-        ua = "Mozilla/5.0"
-        
+        # now the script to thumbnail, insert into db takes place
         # proses resize, thumbnail dan insert ke db, pake dist_img_to_dir.py ae
         return "sukses"
         
