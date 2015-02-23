@@ -24,11 +24,13 @@ def login_required(f):
 @admin.route("/")
 @login_required
 def admin_index():
+    """admin homepage (dashboard)"""
     return render_template("admin/index.html")
 
 
 @admin.route("/login", methods=["GET", "POST"])
 def admin_login():
+    """login for admin"""
     form = AdminLoginForm()
 
     # if "admin" in session:
@@ -126,6 +128,7 @@ def admin_grab():
 
 @admin.route("/logout")
 def admin_logout():
+    """admin logout"""
     if "admin" not in session:
         return redirect(url_for("admin_login"))
     session.pop("admin", None)
