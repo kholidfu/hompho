@@ -4,6 +4,7 @@ from functools import wraps
 from app.forms import AdminLoginForm, UserLoginForm, UserRegisterForm
 import json
 import urllib2
+from urlparse import urlparse
 
 admin = Blueprint('admin', __name__, url_prefix="/admin")
 
@@ -99,6 +100,11 @@ def admin_grab():
         and run: python dist_img_to_dir.py temp_assets
         done! :)
         """
+        # setting up user-agent
+        opener = urllib2.build_opener()
+        opener.addheaders = [('Referer', 'http://www.python.org/')]
+        # opener.open('http://www.example.com/')
+        
         # get checkbox value
         checkedbox = request.form.getlist("check")  # results as checked
         titles = request.form.getlist("textareaTitle")  # results always 4
@@ -112,7 +118,14 @@ def admin_grab():
         count = 1
         for i in container:
             with open("/home/banteng/Desktop/image_%s.jpg" % count, "w") as f:
-                f.write(urllib2.urlopen(i['url']).read())
+                # setting up referer (get tld name)
+                parsed_uri = urlparse(i['url'])
+                referer_info = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
+                # setting up downloader headers info
+                req = urllib2.Request(i['url'])
+                req.add_header('User-Agent', 'Mozilla/4.0 (compatible; MSIE 8.0)')
+                req.add_header('Referer', referer_info)
+                f.write(urllib2.urlopen(req).read())
             count += 1
         # kemudian diproses, download, resize dll, after this line.
         # download, fake the user-agent and the referer
