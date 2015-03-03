@@ -8,6 +8,7 @@ from urlparse import urlparse
 import os
 
 
+# register the blueprint as admin
 admin = Blueprint('admin', __name__, url_prefix="/admin")
 
 
@@ -144,8 +145,18 @@ def admin_grab():
         return "sukses"
         
     # else, show template with form and blank table
-    print "autoreloaded!"
     return render_template("admin/admin_post.html")
+
+
+@admin.route("/draft")
+def admin_draft():
+    """
+    all images that has been downloaded, will be processed here.
+    1. renaming
+    2. thumbnailing
+    3. into dbase
+    """
+    pass
 
 
 @admin.route("/logout")
