@@ -3,6 +3,7 @@ Flask-Mail==0.9.1
 Flask-WTF==0.10.2
 Jinja2==2.7.3
 MarkupSafe==0.23
+Pillow==2.7.0
 Twisted==15.0.0
 Unidecode==0.04.16
 WTForms==2.0.1
