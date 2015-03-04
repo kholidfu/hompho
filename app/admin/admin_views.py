@@ -161,7 +161,7 @@ def admin_draft():
         # edit filename/title, kategori
         # insert into database
         return "sukses"
-    return render_template("admin/draft.html")
+    return render_template("admin/admin_draft.html")
 
 
 @admin.route("/logout")
