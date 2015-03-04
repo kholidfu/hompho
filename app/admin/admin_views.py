@@ -1,9 +1,12 @@
 from flask import render_template, redirect, request, session, flash, url_for
+from flask import send_from_directory
 from flask import Blueprint
 from functools import wraps
+from app.filters import slugify
 from app.forms import AdminLoginForm, UserLoginForm, UserRegisterForm
 import json
 import urllib2
+from urllib import unquote
 from urlparse import urlparse
 import os
 
@@ -23,6 +26,13 @@ def login_required(f):
             login_url = "%s?next=%s" % (url_for("admin.admin_login"), next_url)
             return redirect(login_url)
     return decorated_function
+
+
+# build temporary images assets
+@admin.route("/temp_images/<fname>")
+def get_temp_images(fname):
+    temp_images = os.path.join(os.getcwd(), "app", "temp")
+    return send_from_directory(temp_images, fname)
 
 
 @admin.route("/")
@@ -106,12 +116,12 @@ def admin_grab():
         # setting up user-agent
         opener = urllib2.build_opener()
         opener.addheaders = [('Referer', 'http://www.python.org/')]
-        # opener.open('http://www.example.com/')
         
         # get checkbox value
         checkedbox = request.form.getlist("check")  # results as checked
         titles = request.form.getlist("textareaTitle")  # results always 4
         urls = request.form.getlist("url")  # url for download
+
         # okay solved: make the checkbox as index (y)
         container = []
         for i in checkedbox:
@@ -121,7 +131,12 @@ def admin_grab():
         count = 1
         for i in container:
             # get basename for filename
+            # filename perlu di-rewrite biar gak ada spasi and whatever
+            # double unquote, preventing bad coded fname
             fname = os.path.basename(i['url'])
+            fname = unquote(unquote(fname))
+            # slugify for better fname
+            fname = slugify(os.path.splitext(fname)[0]) + os.path.splitext(fname)[1]
             # harusnya disimpan ke folder semacam temp gitu
             # karena prosesnya satu persatu maka nama file dibikin saja
             # create a temporary directory in app/temp
@@ -156,12 +171,16 @@ def admin_draft():
     2. thumbnailing
     3. into dbase
     """
+    # list all images in app/temp dir
+    temp_dir = os.path.join(os.getcwd(), "app", "temp")
+    images = [i for i in os.listdir(temp_dir) if os.path.isfile(os.path.join(temp_dir, i))]
+
     if request.method == "POST":
         # call dist_img_to_dir.py to thumbnail only
         # edit filename/title, kategori
         # insert into database
         return "sukses"
-    return render_template("admin/admin_draft.html")
+    return render_template("admin/admin_draft.html", images=images)
 
 
 @admin.route("/logout")
