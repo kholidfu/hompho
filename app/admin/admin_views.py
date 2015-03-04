@@ -177,6 +177,8 @@ def admin_draft():
     temp_dir = os.path.join(os.getcwd(), "app", "temp")
     images = [i for i in os.listdir(temp_dir) if os.path.isfile(os.path.join(temp_dir, i))]
 
+    print os.listdir(os.path.join(os.getcwd(), "app", "temp"))
+
     if request.method == "POST":
         # call dist_img_to_dir.py to thumbnail only
         libs_dir = os.path.join(os.getcwd(), "app", "libs")
