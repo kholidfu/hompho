@@ -12,7 +12,7 @@
                     <h1 class="page-header">ng-AdImin</h1>
 
 
-					<form method="post" action="/admin/grabber">
+					<form method="post" action="/admin/draft">
 					  <table class="table table-bordered">
 						<thead>
 						  <tr>
@@ -32,9 +32,9 @@
 							<td><img src="/admin/temp_images/{{ img }}" width="150"></td>
 							<td>{{ img['width'] }}</td>
 							<td>{{ img['height'] }}</td>
-							<td><textarea name="textareaTitle" class="form-control" rows="5">{{ img['titleNoFormatting'] }}</textarea></td>
+							<td><textarea name="textareaTitle" class="form-control" rows="5">{{ img }}</textarea></td>
 							<td><input type="checkbox" name="check" value="{{ count - 1 }}"></td>
-							<td><input type="text" name="url" value="{{ img['url'] }}" /></td>
+							<td><input type="text" name="fname" value="{{ img }}" /></td>
 						  </tr>
 						  {% set count = count + 1 %}
 						  {% endfor %}
