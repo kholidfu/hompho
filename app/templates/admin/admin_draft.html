@@ -1,1 +1,53 @@
-<h1>Drafted</h1>
+{% extends "admin/base.html" %}
+
+{% block title %}
+<title>Grabber for NgAdImin</title>
+{% endblock %}
+
+{% block content %}
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">ng-AdImin</h1>
+
+
+					<form method="post" action="/admin/grabber">
+					  <table class="table table-bordered">
+						<thead>
+						  <tr>
+							<th>#</th>
+							<th>Thumb</th>
+							<th>w</th>
+							<th>h</th>
+							<th>Title</th>
+							<th>Select</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  {% set count = 1 %}
+						  {% for img in images %}
+						  <tr>
+							<td>{{ count }}</td>
+							<td><img src="/admin/temp_images/{{ img }}" width="150"></td>
+							<td>{{ img['width'] }}</td>
+							<td>{{ img['height'] }}</td>
+							<td><textarea name="textareaTitle" class="form-control" rows="5">{{ img['titleNoFormatting'] }}</textarea></td>
+							<td><input type="checkbox" name="check" value="{{ count - 1 }}"></td>
+							<td><input type="text" name="url" value="{{ img['url'] }}" /></td>
+						  </tr>
+						  {% set count = count + 1 %}
+						  {% endfor %}
+						</tbody>
+					  </table>
+					  <button class="btn btn-large btn-primary" type="submit" id="butInsertAll">Insert All Selection</button>
+					</form>
+
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+	<br />
+{% endblock %}
