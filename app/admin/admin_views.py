@@ -9,6 +9,7 @@ import urllib2
 from urllib import unquote
 from urlparse import urlparse
 import os
+import subprocess
 
 
 # register the blueprint as admin
@@ -113,6 +114,12 @@ def admin_grab():
         and run: python dist_img_to_dir.py temp_assets
         done! :)
         """
+        # create a temporary directory in app/temp
+        # to hold temporary images
+        temp_dir = os.path.join(os.getcwd(), "app", "temp")
+        if not os.path.exists(temp_dir):
+            os.makedirs(temp_dir)
+
         # setting up user-agent
         opener = urllib2.build_opener()
         opener.addheaders = [('Referer', 'http://www.python.org/')]
@@ -138,11 +145,6 @@ def admin_grab():
             # slugify for better fname
             fname = slugify(os.path.splitext(fname)[0]) + os.path.splitext(fname)[1]
             # harusnya disimpan ke folder semacam temp gitu
-            # karena prosesnya satu persatu maka nama file dibikin saja
-            # create a temporary directory in app/temp
-            temp_dir = os.path.join(os.getcwd(), "app", "temp")
-            if not os.path.exists(temp_dir):
-                os.makedirs(temp_dir)
 
             with open(os.path.join(temp_dir, fname), "w") as f:
                 # setting up referer (get tld name)
@@ -163,7 +165,7 @@ def admin_grab():
     return render_template("admin/admin_post.html")
 
 
-@admin.route("/draft")
+@admin.route("/draft", methods=["GET", "POST"])
 def admin_draft():
     """
     all images that has been downloaded, will be processed here.
@@ -177,9 +179,26 @@ def admin_draft():
 
     if request.method == "POST":
         # call dist_img_to_dir.py to thumbnail only
+        libs_dir = os.path.join(os.getcwd(), "app", "libs")
+
+        ## process choosen images
+        # get checkbox value
+        checkedbox = request.form.getlist("check")  # results as checked
+        images = request.form.getlist("fname")
+
+        # okay solved: make the checkbox as index (y)
+        container = []  # is the container of our filename
+        for i in checkedbox:
+            container.append(os.path.join(temp_dir, images[int(i)]))
+
+        # process for each image in container
+        for i in container:
+            print i
+
         # edit filename/title, kategori
         # insert into database
         return "sukses"
+
     return render_template("admin/admin_draft.html", images=images)
 
 
