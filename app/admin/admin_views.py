@@ -156,7 +156,12 @@ def admin_draft():
     2. thumbnailing
     3. into dbase
     """
-    pass
+    if request.method == "POST":
+        # call dist_img_to_dir.py to thumbnail only
+        # edit filename/title, kategori
+        # insert into database
+        return "sukses"
+    return render_template("admin/draft.html")
 
 
 @admin.route("/logout")
