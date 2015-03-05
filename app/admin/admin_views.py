@@ -177,7 +177,9 @@ def admin_draft():
     temp_dir = os.path.join(os.getcwd(), "app", "temp")
     images = [i for i in os.listdir(temp_dir) if os.path.isfile(os.path.join(temp_dir, i))]
 
-    print os.listdir(os.path.join(os.getcwd(), "app", "temp"))
+    # declaring categories
+    with open(os.path.join(os.getcwd(), "app", "config", "cat.ini")) as f:
+        categories = [i.strip() for i in f.readlines() if i.strip()]
 
     if request.method == "POST":
         # call dist_img_to_dir.py to thumbnail only
@@ -201,7 +203,7 @@ def admin_draft():
         # insert into database
         return "sukses"
 
-    return render_template("admin/admin_draft.html", images=images)
+    return render_template("admin/admin_draft.html", images=images, categories=categories)
 
 
 @admin.route("/category", methods=["GET", "POST"])
