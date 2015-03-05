@@ -39,18 +39,18 @@
                 </thead>
                 <tbody>
                   {% set count = 1 %}
-		  {% for d in data %}
+				  {% for d in data %}
                   <tr>
                     <td>{{ count }}</td>
                     <td><img src="http://hackpad.imgix.net/{{ d['url'] }}?w=150&h=150&fit=crop"></td>
-		    <td>{{ d['width'] }}</td>
-		    <td>{{ d['height'] }}</td>
+					<td>{{ d['width'] }}</td>
+					<td>{{ d['height'] }}</td>
                     <td><textarea name="textareaTitle" class="form-control" rows="5">{{ d['titleNoFormatting'] }}</textarea></td>
                     <td><input type="checkbox" name="check" value="{{ count - 1 }}"></td>
 					<td><input type="text" name="url" value="{{ d['url'] }}" /></td>
                   </tr>
                   {% set count = count + 1 %}
-		  {% endfor %}
+				  {% endfor %}
                 </tbody>
                 </table>
 		<button class="btn btn-large btn-primary" type="submit" id="butInsertAll">Insert All Selection</button>
