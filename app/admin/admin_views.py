@@ -170,7 +170,7 @@ def admin_draft():
     """
     all images that has been downloaded, will be processed here.
     1. renaming
-    2. thumbnailing
+    2. thumbnailing [optional]
     3. into dbase
     """
     # list all images in app/temp dir
@@ -197,10 +197,10 @@ def admin_draft():
 
         # process for each image in container
         for i in container:
+            # edit filename/title, kategori
+            # insert into database
             print i
 
-        # edit filename/title, kategori
-        # insert into database
         return "sukses"
 
     return render_template("admin/admin_draft.html", images=images, categories=categories)
