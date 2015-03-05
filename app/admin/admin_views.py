@@ -204,6 +204,12 @@ def admin_draft():
     return render_template("admin/admin_draft.html", images=images)
 
 
+@admin.route("/category", methods=["GET", "POST"])
+def admin_new_category():
+    """view and add new category here."""
+    return render_template("admin/admin_category.html")
+
+
 @admin.route("/logout")
 def admin_logout():
     """admin logout"""
