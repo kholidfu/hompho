@@ -207,7 +207,25 @@ def admin_draft():
 @admin.route("/category", methods=["GET", "POST"])
 def admin_new_category():
     """view and add new category here."""
-    return render_template("admin/admin_category.html")
+    # read app/config/cat.ini file
+    cat_ini = os.path.join(os.getcwd(), "app", "config", "cat.ini")
+    
+    with open(cat_ini) as f:
+        categories = [i for i in f.readlines() if i.strip()]
+        
+    if request.method == "POST":
+        # delete old files
+        open(cat_ini, "w").close()
+        # append to categories
+        new_cat = request.form.get("addcat")
+        categories.append(new_cat + "\n")
+        # create new file
+        with open(cat_ini, "w") as f:
+            for cat in categories:
+                f.write(cat)
+        return "sukses"
+
+    return render_template("admin/admin_category.html", categories=categories)
 
 
 @admin.route("/logout")
