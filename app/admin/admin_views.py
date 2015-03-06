@@ -207,8 +207,8 @@ def admin_draft():
 
         # process for each image in container
         for i in container:
-            # edit filename/title, kategori
-            # insert into database
+            # rename, thumbnail, and insert into database
+            # will be tackled by dist_img_to_dir.py script
             subprocess.call(["python", script_path, i["fpath"]])
 
         return "sukses"
