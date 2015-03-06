@@ -202,11 +202,14 @@ def admin_draft():
         # container now contain full path to image[s], tinggal di-rename atau thumbnail
         # pillow will enter here
 
+        # path to dist_img_to_dir.py
+        tool_path = os.path.join(os.getcwd(), "app", "libs", "dist_img_to_dir.py")
+
         # process for each image in container
         for i in container:
             # edit filename/title, kategori
             # insert into database
-            print i
+            subprocess.call(["python", tool_path, i["fpath"]])
 
         return "sukses"
 
