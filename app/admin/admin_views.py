@@ -203,13 +203,13 @@ def admin_draft():
         # pillow will enter here
 
         # path to dist_img_to_dir.py
-        tool_path = os.path.join(os.getcwd(), "app", "libs", "dist_img_to_dir.py")
+        script_path = os.path.join(os.getcwd(), "app", "libs", "dist_img_to_dir.py")
 
         # process for each image in container
         for i in container:
             # edit filename/title, kategori
             # insert into database
-            subprocess.call(["python", tool_path, i["fpath"]])
+            subprocess.call(["python", script_path, i["fpath"]])
 
         return "sukses"
 
