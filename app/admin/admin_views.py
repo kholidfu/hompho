@@ -189,11 +189,18 @@ def admin_draft():
         # get checkbox value
         checkedbox = request.form.getlist("check")  # results as checked
         images = request.form.getlist("fname")
+        titles = request.form.getlist("textareaTitle")
 
         # okay solved: make the checkbox as index (y)
         container = []  # is the container of our filename
         for i in checkedbox:
-            container.append(os.path.join(temp_dir, images[int(i)]))
+            container.append({
+                "fpath": os.path.join(temp_dir, images[int(i)]),
+                "title": titles[int(i)],
+            })
+
+        # container now contain full path to image[s], tinggal di-rename atau thumbnail
+        # pillow will enter here
 
         # process for each image in container
         for i in container:
