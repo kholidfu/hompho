@@ -65,7 +65,7 @@ def admin_login():
 
 @admin.route("/grabber", methods=["GET", "POST"])
 @login_required
-def admin_grab():
+def admin_grabber():
     """
     admin update database by utilizing google images api.
     1. show the post form
@@ -159,7 +159,7 @@ def admin_grab():
             count += 1
         # now the script to thumbnail, insert into db takes place
         # proses resize, thumbnail dan insert ke db, pake dist_img_to_dir.py ae
-        return "sukses"
+        return redirect("/admin/grabber")
         
     # else, show template with form and blank table
     return render_template("admin/admin_post.html")
@@ -211,7 +211,7 @@ def admin_draft():
             # will be tackled by dist_img_to_dir.py script
             subprocess.call(["python", script_path, i["fpath"]])
 
-        return "sukses"
+        return redirect("/admin/draft")
 
     return render_template("admin/admin_draft.html", images=images, categories=categories)
 
@@ -235,7 +235,7 @@ def admin_new_category():
         with open(cat_ini, "w") as f:
             for cat in categories:
                 f.write(cat)
-        return "sukses"
+        return redirect("/admin/category")
 
     return render_template("admin/admin_category.html", categories=categories)
 
