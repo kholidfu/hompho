@@ -190,6 +190,7 @@ def admin_draft():
         checkedbox = request.form.getlist("check")  # results as checked
         images = request.form.getlist("fname")
         titles = request.form.getlist("textareaTitle")
+        category = request.form.get("category")
 
         # okay solved: make the checkbox as index (y)
         container = []  # is the container of our filename
@@ -197,10 +198,14 @@ def admin_draft():
             container.append({
                 "fpath": os.path.join(temp_dir, images[int(i)]),
                 "title": titles[int(i)],
+                "category": category,
             })
 
         # container now contain full path to image[s], tinggal di-rename atau thumbnail
         # pillow will enter here
+
+        # hard code debugger
+        # print container 
 
         # path to dist_img_to_dir.py
         script_path = os.path.join(os.getcwd(), "app", "libs", "dist_img_to_dir.py")
@@ -209,7 +214,8 @@ def admin_draft():
         for i in container:
             # rename, thumbnail, and insert into database
             # will be tackled by dist_img_to_dir.py script
-            subprocess.call(["python", script_path, i["fpath"]])
+            # subprocess.call(["python", script_path, i["fpath"]])
+            pass
 
         return redirect("/admin/draft")
 
