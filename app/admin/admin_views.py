@@ -191,6 +191,7 @@ def admin_draft():
         images = request.form.getlist("fname")
         titles = request.form.getlist("textareaTitle")
         category = request.form.get("category")
+        tags = request.form.get("tag")
 
         # okay solved: make the checkbox as index (y)
         container = []  # is the container of our filename
