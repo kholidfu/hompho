@@ -204,18 +204,18 @@ def admin_draft():
         # container now contain full path to image[s], tinggal di-rename atau thumbnail
         # pillow will enter here
 
-        # hard code debugger
+        # hard code debugger :)
         # print container 
 
         # path to dist_img_to_dir.py
-        script_path = os.path.join(os.getcwd(), "app", "libs", "dist_img_to_dir.py")
+        path_to_script = os.path.join(os.getcwd(), "app", "libs", "dist_img_to_dir.py")
 
         # process for each image in container
         for i in container:
             # rename, thumbnail, and insert into database
             # will be tackled by dist_img_to_dir.py script
-            # subprocess.call(["python", script_path, i["fpath"]])
-            pass
+            # subprocess.call(["python", path_to_script, i["fpath"]])
+            pass  # temporary use
 
         return redirect("/admin/draft")
 
