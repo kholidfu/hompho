@@ -65,6 +65,12 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/tags/<tag>")
+def tag(tag):
+    """viewing posts with tag name == tag."""
+    pass
+
+
 @app.route("/sitemap.xml")
 def sitemap():
     # data = db.freewaredata.find()
