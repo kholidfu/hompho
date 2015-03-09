@@ -188,31 +188,40 @@ def admin_draft():
         ## process choosen images
         # get checkbox value
         checkedbox = request.form.getlist("check")  # results as checked
+        post_title = request.form.get("post-title")
         images = request.form.getlist("fname")
-        titles = request.form.getlist("textareaTitle")
+        image_titles = request.form.getlist("textareaTitle")
         category = request.form.get("category")
-        tags = request.form.get("tag")
+        tags = request.form.getlist("tag")
 
         # okay solved: make the checkbox as index (y)
-        container = []  # is the container of our filename
+        img_container = []  # is the container of our filename
         for i in checkedbox:
-            container.append({
+            img_container.append({
                 "fpath": os.path.join(temp_dir, images[int(i)]),
-                "title": titles[int(i)],
-                "category": category,
+                "image_title": image_titles[int(i)],
             })
+
+        # build data to be inserted into dbase
+        db_data = {
+            "post_title": post_title,
+            "category": category,
+            "tags": tags,
+            "images": img_container,
+        }
+        
 
         # container now contain full path to image[s], tinggal di-rename atau thumbnail
         # pillow will enter here
 
         # hard code debugger :)
-        # print container 
+        print db_data
 
         # path to dist_img_to_dir.py
         path_to_script = os.path.join(os.getcwd(), "app", "libs", "dist_img_to_dir.py")
 
         # process for each image in container
-        for i in container:
+        for i in img_container:
             # rename, thumbnail, and insert into database
             # will be tackled by dist_img_to_dir.py script
             # subprocess.call(["python", path_to_script, i["fpath"]])
