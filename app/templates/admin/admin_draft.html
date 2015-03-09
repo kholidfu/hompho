@@ -40,11 +40,11 @@
 
 					<form method="post" action="/admin/draft">
 					  <div class="form-group">
-						<label>Post Title</label>
+						<label>Title</label>
 						<input class="form-control" type="text" name="post-title" />
 					  </div>
 					  <div class="form-group">
-						<label>Post Category</label>
+						<label>Category</label>
 						<select name="category" class="form-control">
 						  {% for cat in categories %}
 						  <option>{{ cat }}</option>
@@ -52,7 +52,7 @@
 						</select>
 					  </div>
 					  <div class="form-group">
-						<label>Post Tags</label>
+						<label>Tags</label>
 						<textarea class="form-control" name="tag">yes, no, uh</textarea>
 					  </div>
 					  <table class="table table-bordered">
@@ -83,7 +83,7 @@
 						  {% endfor %}
 						</tbody>
 					  </table>
-					  <button class="btn btn-large btn-primary" type="submit" id="butInsertAll">Post Selections</button>
+					  <button class="btn btn-large btn-primary" type="submit" id="butInsertAll">Submit Selections</button>
 					</form>
 
                 </div>
