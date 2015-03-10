@@ -10,7 +10,13 @@ from urllib import unquote
 from urlparse import urlparse
 import os
 import subprocess
+import pymongo
+import datetime
 
+
+# dbase thing
+c = pymongo.Connection()
+db = c["hompho"]
 
 # register the blueprint as admin
 admin = Blueprint('admin', __name__, url_prefix="/admin")
@@ -192,7 +198,9 @@ def admin_draft():
         images = request.form.getlist("fname")
         image_titles = request.form.getlist("textareaTitle")
         category = request.form.get("category")
-        tags = request.form.getlist("tag")
+        tags = request.form.get("tag")
+        # process tags further to remove white/trail space
+        tags = [tag.strip() for tag in tags.split(",")]
 
         # okay solved: make the checkbox as index (y)
         img_container = []  # is the container of our filename
@@ -221,11 +229,33 @@ def admin_draft():
         path_to_script = os.path.join(os.getcwd(), "app", "libs", "dist_img_to_dir.py")
 
         # process for each image in container
-        for i in img_container:
+        for img in img_container:
             # rename, thumbnail, and insert into database
             # will be tackled by dist_img_to_dir.py script
-            # subprocess.call(["python", path_to_script, i["fpath"]])
-            pass  # temporary use
+            subprocess.call(["python", path_to_script, img["fpath"]])
+            # pass  # temporary use
+
+
+        # inserting db should be here
+        db.home.insert({
+            "title": db_data["post_title"],
+            "category": db_data["category"],
+            "tags": db_data["tags"],
+            "hits": 0,
+            "favor": 0,  # jumlah visitor yang memfavorite gambar ini
+            # "fpath": os.path.join(random_dirs, new_fname),  # /084000/filename.jpeg, ntar tinggal nambahin /assets/large/ atau /assets/medium/ atau /assets/small/
+            # "fsize": os.path.getsize(path_to_ori_file),
+            # "fext": imghdr.what(path_to_ori_file),
+            # "fresx": Image.open(path_to_ori_file).size[0],
+            # "fresy": Image.open(path_to_ori_file).size[1],
+            "download": 0,  # download counter
+            "author": "admin",
+            "added": datetime.datetime.now(),
+            "voteup": 0,
+            "votedown": 0,
+            "favorited_by": [],  # list username yang memfavorit wallpaper ini
+            # "colors": colors,
+        })
 
         return redirect("/admin/draft")
 
