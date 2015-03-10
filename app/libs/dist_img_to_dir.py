@@ -20,8 +20,8 @@ import datetime
 
 
 # database things
-c = pymongo.Connection()
-db = c["hompho"]
+# c = pymongo.Connection()
+# db = c["hompho"]
 
 
 def resize_and_crop(img_path, modified_path, size, crop_type='top'):
@@ -360,22 +360,22 @@ usernames = [
     "cadgehom",
 ]
 
-db.home.insert({
-    "title": title,
-    "category": category,
-    "tags": [i.strip() for i in os.path.basename(path_to_ori_file).rsplit(".", 1)[0].split("-")],
-    "hits": 0,
-    "favor": 0,  # jumlah visitor yang memfavorite gambar ini
-    "fpath": os.path.join(random_dirs, new_fname),  # /084000/filename.jpeg, ntar tinggal nambahin /assets/large/ atau /assets/medium/ atau /assets/small/
-    "fsize": os.path.getsize(path_to_ori_file),
-    "fext": imghdr.what(path_to_ori_file),
-    "fresx": Image.open(path_to_ori_file).size[0],
-    "fresy": Image.open(path_to_ori_file).size[1],
-    "download": 0,  # download counter
-    "author": random.choice(usernames),
-    "added": datetime.datetime.now(),
-    "voteup": 0,
-    "votedown": 0,
-    "favorited_by": [],  # list username yang memfavorit wallpaper ini
-    "colors": colors,
-})
+# db.home.insert({
+#     "title": title,
+#     "category": category,
+#     "tags": [i.strip() for i in os.path.basename(path_to_ori_file).rsplit(".", 1)[0].split("-")],
+#     "hits": 0,
+#     "favor": 0,  # jumlah visitor yang memfavorite gambar ini
+#     "fpath": os.path.join(random_dirs, new_fname),  # /084000/filename.jpeg, ntar tinggal nambahin /assets/large/ atau /assets/medium/ atau /assets/small/
+#     "fsize": os.path.getsize(path_to_ori_file),
+#     "fext": imghdr.what(path_to_ori_file),
+#     "fresx": Image.open(path_to_ori_file).size[0],
+#     "fresy": Image.open(path_to_ori_file).size[1],
+#     "download": 0,  # download counter
+#     "author": random.choice(usernames),
+#     "added": datetime.datetime.now(),
+#     "voteup": 0,
+#     "votedown": 0,
+#     "favorited_by": [],  # list username yang memfavorit wallpaper ini
+#     "colors": colors,
+# })
