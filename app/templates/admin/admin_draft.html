@@ -75,7 +75,7 @@
 							<td><img src="/admin/temp_images/{{ img }}" width="150"></td>
 							<td>{{ img['width'] }}</td>
 							<td>{{ img['height'] }}</td>
-							<td><textarea name="textareaTitle" class="form-control" rows="5">{{ img }}</textarea></td>
+							<td><textarea name="textareaTitle" class="form-control" rows="5">{{ img|replace('-', ' ')|replace('.', '')|replace('jpg', '') }}</textarea></td>
 							<td><input type="checkbox" name="check" value="{{ count - 1 }}"></td>
 							<td><input type="text" name="fname" value="{{ img }}" /></td>
 						  </tr>
