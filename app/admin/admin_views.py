@@ -233,6 +233,7 @@ def admin_draft():
             # rename, thumbnail, and insert into database
             # will be tackled by dist_img_to_dir.py script
             subprocess.call(["python", path_to_script, img["fpath"]])
+            # move the images from /temp/ into /assets/ folder
             # pass  # temporary use
 
 
@@ -243,6 +244,7 @@ def admin_draft():
             "tags": db_data["tags"],
             "hits": 0,
             "favor": 0,  # jumlah visitor yang memfavorite gambar ini
+            "images": db_data["images"],
             # "fpath": os.path.join(random_dirs, new_fname),  # /084000/filename.jpeg, ntar tinggal nambahin /assets/large/ atau /assets/medium/ atau /assets/small/
             # "fsize": os.path.getsize(path_to_ori_file),
             # "fext": imghdr.what(path_to_ori_file),
