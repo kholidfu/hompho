@@ -69,6 +69,14 @@ def admin_login():
         return render_template("/admin/login.html", form=form)
 
 
+@admin.route("/posts")
+@login_required
+def admin_posts():
+    """ get all posts """
+    data = db.home.find().sort("_id", -1).limit(10)
+    return render_template("admin/admin_posts.html", data=data)
+
+
 @admin.route("/grabber", methods=["GET", "POST"])
 @login_required
 def admin_grabber():
