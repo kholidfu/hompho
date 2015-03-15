@@ -1,0 +1,47 @@
+{% extends "admin/base.html" %}
+
+{% block title %}
+<title>All Posts</title>
+{% endblock %}
+
+{% block content %}
+
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h1 class="page-header">Manage Posts ng-AdImin</h1>
+					<div class="alert alert-success">
+					  List of 10 latest posts.
+					</div>
+
+					<form method="post" action="/admin/category">
+					  <table class="table table-bordered">
+						<thead>
+						  <tr>
+							<th>#</th>
+							<th>Title</th>
+						  </tr>
+						</thead>
+						<tbody>
+						  {% set count = 1 %}
+						  {% for d in data %}
+						  <tr>
+							<td>{{ count }}</td>
+							<td>{{ d['title'] }}</td>
+						  </tr>
+						  {% set count = count + 1 %}
+						  {% endfor %}
+						</tbody>
+					  </table>
+					  <button class="btn btn-large btn-primary" type="submit" id="butInsertAll">Add New</button>
+					</form>
+
+                </div>
+                <!-- /.col-lg-12 -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /#page-wrapper -->
+	<br />
+{% endblock %}
+
